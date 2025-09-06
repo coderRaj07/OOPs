@@ -73,9 +73,11 @@ class Account {
 
 ## 🔹 2. Abstraction
 
-Abstraction hides **implementation details** and exposes only the **essential features**.
+**Abstraction** hides implementation details and exposes only the essential features. It allows you to define a **template or contract** that other classes follow, without worrying about the exact implementation in the base definition.
 
-**Python Example**
+---
+
+### Python Example
 
 ```python
 from abc import ABC, abstractmethod
@@ -88,12 +90,14 @@ class Shape(ABC):
 class Circle(Shape):
     def __init__(self, r):
         self.r = r
-
+    
     def area(self):
         return 3.14 * self.r * self.r
 ```
 
-**Java Example**
+---
+
+### Java Example
 
 ```java
 abstract class Shape {
@@ -102,23 +106,103 @@ abstract class Shape {
 
 class Circle extends Shape {
     double r;
-    Circle(double r) { this.r = r; }
-    double area() { return 3.14 * r * r; }
+
+    Circle(double r) { 
+        this.r = r; 
+    }
+
+    double area() { 
+        return 3.14 * r * r; 
+    }
 }
 ```
 
-**TypeScript Example**
+---
 
-```ts
+### TypeScript Example
+
+```typescript
 abstract class Shape {
     abstract area(): number;
 }
 
 class Circle extends Shape {
     constructor(private r: number) { super(); }
-    area(): number { return 3.14 * this.r * this.r; }
+
+    area(): number { 
+        return 3.14 * this.r * this.r; 
+    }
 }
 ```
+
+---
+
+## 🔹 Using **Interfaces**
+
+An **interface** defines a contract: it specifies **what methods a class must implement** but usually does not provide implementation (except default methods in modern Java/TypeScript). Interfaces are useful when multiple unrelated classes need to follow the same set of rules.
+
+### Java Interface Example
+
+```java
+interface Drawable {
+    void draw();
+}
+
+class Circle implements Drawable {
+    public void draw() {
+        System.out.println("Drawing Circle");
+    }
+}
+
+class Rectangle implements Drawable {
+    public void draw() {
+        System.out.println("Drawing Rectangle");
+    }
+}
+```
+
+### TypeScript Interface Example
+
+```typescript
+interface Drawable {
+    draw(): void;
+}
+
+class Circle implements Drawable {
+    constructor(private r: number) {}
+    
+    draw(): void {
+        console.log("Drawing Circle");
+    }
+}
+```
+
+---
+
+## 🔹 Abstract Class vs Interface
+
+| Feature            | Abstract Class                                 | Interface                                                         |
+| ------------------ | ---------------------------------------------- | ----------------------------------------------------------------- |
+| **Implementation** | Can provide partial/default implementation     | Cannot provide implementation (except default methods in Java 8+) |
+| **Fields / State** | Can have fields and constructors               | Cannot have instance fields (TypeScript can have optional fields) |
+| **Inheritance**    | Single inheritance (can extend only one class) | Multiple inheritance allowed (can implement multiple interfaces)  |
+| **Use Case**       | When classes share common logic/fields         | When unrelated classes share behavior/contract                    |
+
+---
+
+## 🔹 When to Use an Abstract Class
+
+* You want to **provide a partial implementation** (some common logic) that subclasses can share.
+* You want to **enforce a base state/fields** that all subclasses inherit.
+* You want to define a **family of related classes** with a shared structure.
+* Single inheritance is sufficient and desired.
+
+---
+
+In short:
+
+* **Abstract classes** → "What a class is + how some common parts work."
+* **Interfaces** → "What a class can do, regardless of its hierarchy."
 
 ---
 
